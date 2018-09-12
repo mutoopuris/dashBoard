@@ -1,0 +1,67 @@
+<div class='container'><div class='panel panel-primary'>
+<div class='panel-heading'>
+    {{title}}
+
+</div>
+<div class='panel-body'>
+    <div class='row'>
+        <div class='col-md-2'>
+            Filter By:
+        </div>
+        <div class='col-md-4'>
+                <input type='text' [(ngModel)]="filterProducts"/> <!--two way biding is ngModel-->
+         </div>
+    </div>
+    <div class='row'>
+            <div class='col-md-6'>
+                <h3>Filtered By: {{filterProducts}}</h3>
+            </div>
+            
+        </div>
+<div class='table-responsive'>
+    <table class='table' *ngIf="products && products.length">
+           <!-- <table class='table' *ngIf="showTable"> -->
+        <thead>
+            <tr>
+                <th>
+                    <button class='btn btn-success'
+                    (click)="toggleImage()">
+                    {{showImage ? "Hide Image": "Show Image"}} <!--turnery operator-->
+                </button>
+                </th>
+                <th>Product Name</th>
+                <th>Product Code</th>
+                <th>Product Date</th>
+                <th>Price</th>
+                <th>Star Rating</th>
+            </tr>
+        </thead>
+      {{showImage}}
+        <tbody>
+            <tr *ngFor='let product of products | mySearch: filterProducts'>
+                <td>
+                    
+                    <img [src]='product.imageUrl' *ngIf="showImage"/><!-- two way binding-->
+                </td>
+                
+              <td>{{product.productName | myUpper: "Upper" }}</td>
+              <td>{{product.productCode | myUpper: "Lower" }}</td>
+              <td>{{product.releaseDate}}</td>
+              <td>{{product.price | addValue | currency: "GBP"}}</td>
+              <td>{{product.starRating}}</td>
+              
+            </tr>
+            
+            
+            
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+</div>
+</div>
+</div>
